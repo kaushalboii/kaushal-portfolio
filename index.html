@@ -1,27 +1,225 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Kaushal Maran M | Portfolio</title>
-  <link rel="stylesheet" href="css/style.css" />
-  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-light: #fdfcff;
+      --text-light: #1f1f1f;
+      --bg-dark: #101010;
+      --text-dark: #efefef;
+      --primary: #6f00ff;
+      --accent: #ff00c8;
+      --highlight: #ffa500;
+    }
+    * {
+      box-sizing: border-box;
+    }
+    html, body {
+      margin: 0;
+      padding: 0;
+      scroll-behavior: smooth;
+    }
+    body {
+      font-family: 'Outfit', sans-serif;
+      background: var(--bg-light);
+      color: var(--text-light);
+      transition: background 0.4s, color 0.4s;
+      overflow-x: hidden;
+    }
+    body.dark {
+      background: var(--bg-dark);
+      color: var(--text-dark);
+    }
+    header {
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: white;
+      padding: 6rem 2rem 4rem;
+      text-align: center;
+      clip-path: ellipse(100% 100% at 50% 0%);
+      box-shadow: 0 16px 32px rgba(0, 0, 0, 0.4);
+      position: relative;
+      z-index: 2;
+    }
+    header h1 {
+      font-size: 3.8rem;
+      margin: 0 0 1rem;
+      animation: glow 3s ease-in-out infinite alternate;
+    }
+    header p {
+      font-size: 1.25rem;
+      line-height: 1.6;
+    }
+    @keyframes glow {
+      from { text-shadow: 0 0 10px #fff, 0 0 30px var(--accent), 0 0 50px var(--primary); }
+      to { text-shadow: 0 0 20px #fff, 0 0 40px var(--accent), 0 0 60px var(--primary); }
+    }
+    section {
+      padding: 3rem 2rem;
+      max-width: 1000px;
+      margin: auto;
+      opacity: 0;
+      transform: translateY(40px);
+      animation: fadeInUp 1s ease-out forwards;
+    }
+    section:not(:first-of-type) {
+      animation-delay: 0.4s;
+    }
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    h2 {
+      font-size: 2.4rem;
+      margin-bottom: 1.25rem;
+      background: linear-gradient(to right, var(--primary), var(--accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+    }
+    .skill, .project, ul {
+      margin-bottom: 1.5rem;
+    }
+    .project {
+      background: linear-gradient(135deg, #ffffff, #f0f0f0);
+      padding: 1.8rem;
+      border-radius: 20px;
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.12);
+      transition: all 0.4s ease;
+      border-left: 6px solid var(--primary);
+      position: relative;
+      color: #111;
+    }
+    .project:hover {
+      transform: scale(1.05);
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.25);
+    }
+    body.dark .project {
+      background: linear-gradient(135deg, #1a1a1a, #222);
+      color: white;
+    }
+    .toggle-theme {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      background: linear-gradient(to right, var(--primary), var(--accent));
+      color: white;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      cursor: pointer;
+      border-radius: 50px;
+      z-index: 1000;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      transition: all 0.3s ease;
+    }
+    .toggle-theme:hover {
+      transform: scale(1.1);
+    }
+    footer {
+      text-align: center;
+      padding: 3rem 2rem;
+      background: linear-gradient(to right, var(--primary), var(--accent));
+      color: white;
+      clip-path: polygon(0 15%, 100% 0, 100% 100%, 0% 100%);
+      font-size: 1.1rem;
+    }
+    a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    form input, form textarea {
+      width: 100%;
+      margin-bottom: 1rem;
+      padding: 1rem;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 12px;
+      background: #fdfdfd;
+    }
+    form button {
+      padding: 1rem 2rem;
+      background: linear-gradient(to right, var(--primary), var(--accent));
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+    form button:hover {
+      transform: scale(1.07);
+    }
+  </style>
 </head>
 <body>
-  <section class="home" id="home">
-    <div class="home-content">
-      <h3>Hello, I'm</h3>
-      <h1>Kaushal Maran M</h1>
-      <h3><span class="multiple-text">iOS Dev | Full Stack | Cybersecurity</span></h3>
-      <p>Crafting immersive apps with SwiftUI, Firebase & PHP magic ✨</p>
-      <div class="social-media">
-        <a href="#"><i class='bx bxl-github'></i></a>
-        <a href="#"><i class='bx bxl-linkedin'></i></a>
-      </div>
-      <a href="Kaushal_CV.pdf" class="btn">Download CV</a>
+  <button class="toggle-theme" onclick="document.body.classList.toggle('dark')">🌓 Theme</button>
+  <header>
+    <h1>Kaushal Maran M</h1>
+    <p><strong><em>iOS Developer • Full Stack Enthusiast • Certified Network Defender</em></strong></p>
+    <p><em style="font-size: 1.1rem;">“Design-driven. Code-confident. Storming solutions from UI to backend with security in mind.”</em></p>
+  </header>
+
+  <section>
+    <h2>About Me</h2>
+    <p>I am a final year B.Tech Information Technology student passionate about iOS development, backend systems, and cybersecurity. I’ve built real-time applications using SwiftUI, PHP, and Firebase, and enjoy transforming ideas into polished digital solutions.</p>
+  </section>
+
+  <section>
+    <h2>Skills</h2>
+    <div class="skill">💡 <strong>Languages & Frameworks:</strong> SwiftUI, PHP, MySQL, Firebase, REST APIs, AWS (EC2, S3, SQS)</div>
+    <div class="skill">🎨 <strong>Frontend Tools:</strong> HTML5, CSS3, JavaScript, Figma, CoreData, Git, Xcode</div>
+    <div class="skill">🧠 <strong>ML & Security:</strong> Python, NLP, Machine Learning, Network Security</div>
+  </section>
+
+  <section>
+    <h2>Projects</h2>
+    <div class="project">
+      <strong>Zenlife – Personalized Sound-Based Wellness App</strong><br>
+      iOS app using SwiftUI and Firebase to deliver calming sound experiences with secure backend support.
+    </div>
+    <div class="project">
+      <strong>Cross-Lingual Legal Document Summarizer</strong><br>
+      NLP-based Python tool to summarize legal content in multiple languages.
+    </div>
+    <div class="project">
+      <strong>Automatic Comic Generator</strong><br>
+      Java & neural networks to generate comic strips with GANs and style transfer.
     </div>
   </section>
-  <script src="js/script.js"></script>
+
+  <section>
+    <h2>Certifications</h2>
+    <ul>
+      <li>✅ Certified Network Defender – EC-Council</li>
+      <li>✅ Firebase for iOS – Google</li>
+      <li>✅ AWS Cloud Foundations – AWS Academy</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Contact</h2>
+    <form action="#" method="POST">
+      <input type="text" placeholder="Your Name" required />
+      <input type="email" placeholder="Your Email" required />
+      <textarea rows="4" placeholder="Your Message" required></textarea>
+      <button type="submit">Send Message</button>
+    </form>
+    <p>📧 Email: <a href="mailto:kaushalmaran@gmail.com">kaushalmaran@gmail.com</a></p>
+    <p>💻 GitHub: <a href="https://github.com/kaushalboii" target="_blank">github.com/kaushalboii</a></p>
+    <p>🔗 LinkedIn: <a href="https://linkedin.com/in/kaushal-maran-m-9572622b1" target="_blank">linkedin.com/in/kaushal-maran-m-9572622b1</a></p>
+  </section>
+
+  <footer>
+    <p>🚀 Made with 💻 by <strong>Kaushal Maran M aka Dood</strong></p>
+  </footer>
 </body>
 </html>
