@@ -36,27 +36,30 @@
     header {
       background: linear-gradient(135deg, var(--primary), var(--accent));
       color: white;
-      padding: 4rem 2rem;
+      padding: 5rem 2rem 3rem;
       text-align: center;
       clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
       box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
     }
     header h1 {
-      font-size: 3rem;
+      font-size: 3.5rem;
       margin: 0 0 0.5rem;
-      animation: pulse 2s infinite alternate;
+      animation: glow 2s ease-in-out infinite alternate;
     }
-    @keyframes pulse {
-      from { transform: scale(1); }
-      to { transform: scale(1.03); }
+    header p {
+      font-size: 1.2rem;
+    }
+    @keyframes glow {
+      from { text-shadow: 0 0 10px #fff, 0 0 20px var(--accent), 0 0 30px var(--primary); }
+      to { text-shadow: 0 0 20px #fff, 0 0 30px var(--accent), 0 0 40px var(--primary); }
     }
     section {
       padding: 3rem 2rem;
       max-width: 1000px;
       margin: auto;
-      animation: fadeInUp 1s ease forwards;
       opacity: 0;
-      transform: translateY(20px);
+      transform: translateY(30px);
+      animation: fadeInUp 1s ease-out forwards;
     }
     section:nth-of-type(1) { animation-delay: 0.2s; }
     section:nth-of-type(2) { animation-delay: 0.4s; }
@@ -74,34 +77,38 @@
     h2 {
       border-left: 6px solid var(--highlight);
       padding-left: 1rem;
-      font-size: 2rem;
-      margin-bottom: 1rem;
+      font-size: 2.2rem;
+      margin-bottom: 1.5rem;
+      background: linear-gradient(to right, var(--primary), var(--accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
     .skill, .project, ul {
-      margin-bottom: 1rem;
+      margin-bottom: 1.25rem;
     }
     .project {
-      background: #fff;
-      padding: 1.5rem;
+      background: linear-gradient(145deg, #ffffff, #f0f0f0);
+      padding: 1.75rem;
       border-radius: 20px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-      transition: all 0.3s ease-in-out;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+      transition: all 0.4s ease-in-out;
       border-left: 5px solid var(--primary);
       position: relative;
+      color: #333;
     }
     .project:hover {
-      transform: translateY(-8px) scale(1.01);
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+      transform: translateY(-10px) scale(1.03);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
     }
     body.dark .project {
-      background: #1c1c1c;
+      background: linear-gradient(145deg, #1a1a1a, #222);
       color: white;
     }
     .toggle-theme {
       position: fixed;
       top: 1rem;
       right: 1rem;
-      background: var(--primary);
+      background: linear-gradient(to right, var(--primary), var(--accent));
       color: white;
       border: none;
       padding: 0.75rem 1.25rem;
@@ -110,10 +117,10 @@
       border-radius: 30px;
       z-index: 1000;
       box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-      transition: background 0.3s ease;
+      transition: transform 0.3s ease;
     }
     .toggle-theme:hover {
-      background: var(--accent);
+      transform: scale(1.1);
     }
     footer {
       text-align: center;
@@ -136,6 +143,7 @@
       font-size: 1rem;
       border: 1px solid #ccc;
       border-radius: 10px;
+      background: #fefefe;
     }
     form button {
       padding: 1rem 2rem;
@@ -156,8 +164,8 @@
   <button class="toggle-theme" onclick="document.body.classList.toggle('dark')">🌓 Theme</button>
   <header>
     <h1>Kaushal Maran M</h1>
-    <p>iOS Developer • Full Stack Enthusiast • Certified Network Defender</p>
-    <p><em>“Design-driven. Code-confident. Storming solutions from UI to backend with security in mind.”</em></p>
+    <p><strong><em>iOS Developer • Full Stack Enthusiast • Certified Network Defender</em></strong></p>
+    <p><em style="font-size: 1.1rem;">“Design-driven. Code-confident. Storming solutions from UI to backend with security in mind.”</em></p>
   </header>
 
   <section>
@@ -167,9 +175,9 @@
 
   <section>
     <h2>Skills</h2>
-    <div class="skill">SwiftUI, PHP, MySQL, Firebase, REST APIs, AWS (EC2, S3, SQS)</div>
-    <div class="skill">HTML5, CSS3, JavaScript, Figma, CoreData, Git, Xcode</div>
-    <div class="skill">Python, NLP, Machine Learning, Network Security</div>
+    <div class="skill">💡 <strong>Languages & Frameworks:</strong> SwiftUI, PHP, MySQL, Firebase, REST APIs, AWS (EC2, S3, SQS)</div>
+    <div class="skill">🎨 <strong>Frontend Tools:</strong> HTML5, CSS3, JavaScript, Figma, CoreData, Git, Xcode</div>
+    <div class="skill">🧠 <strong>ML & Security:</strong> Python, NLP, Machine Learning, Network Security</div>
   </section>
 
   <section>
@@ -191,9 +199,9 @@
   <section>
     <h2>Certifications</h2>
     <ul>
-      <li>Certified Network Defender – EC-Council</li>
-      <li>Firebase for iOS – Google</li>
-      <li>AWS Cloud Foundations – AWS Academy</li>
+      <li>✅ Certified Network Defender – EC-Council</li>
+      <li>✅ Firebase for iOS – Google</li>
+      <li>✅ AWS Cloud Foundations – AWS Academy</li>
     </ul>
   </section>
 
@@ -205,13 +213,13 @@
       <textarea rows="4" placeholder="Your Message" required></textarea>
       <button type="submit">Send Message</button>
     </form>
-    <p>Email: kaushalmaran@gmail.com</p>
-    <p>GitHub: <a href="https://github.com/kaushalboii" target="_blank">github.com/kaushalboii</a></p>
-    <p>LinkedIn: <a href="https://linkedin.com/in/kaushal-maran-m-9572622b1" target="_blank">linkedin.com/in/kaushal-maran-m-9572622b1</a></p>
+    <p>📧 Email: <a href="mailto:kaushalmaran@gmail.com">kaushalmaran@gmail.com</a></p>
+    <p>💻 GitHub: <a href="https://github.com/kaushalboii" target="_blank">github.com/kaushalboii</a></p>
+    <p>🔗 LinkedIn: <a href="https://linkedin.com/in/kaushal-maran-m-9572622b1" target="_blank">linkedin.com/in/kaushal-maran-m-9572622b1</a></p>
   </section>
 
   <footer>
-    <p>Made with 💻 by Kaushal Maran M aka Dood</p>
+    <p>🚀 Made with 💻 by <strong>Kaushal Maran M aka Dood</strong></p>
   </footer>
 </body>
 </html>
