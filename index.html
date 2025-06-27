@@ -7,13 +7,13 @@
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg-light: #f9f9f9;
-      --text-light: #222;
-      --bg-dark: #111;
-      --text-dark: #f0f0f0;
-      --primary: #7f00ff;
-      --accent: #e100ff;
-      --highlight: #ff8c00;
+      --bg-light: #fdfcff;
+      --text-light: #1f1f1f;
+      --bg-dark: #101010;
+      --text-dark: #efefef;
+      --primary: #6f00ff;
+      --accent: #ff00c8;
+      --highlight: #ffa500;
     }
     * {
       box-sizing: border-box;
@@ -28,6 +28,7 @@
       background: var(--bg-light);
       color: var(--text-light);
       transition: background 0.4s, color 0.4s;
+      overflow-x: hidden;
     }
     body.dark {
       background: var(--bg-dark);
@@ -36,72 +37,70 @@
     header {
       background: linear-gradient(135deg, var(--primary), var(--accent));
       color: white;
-      padding: 5rem 2rem 3rem;
+      padding: 6rem 2rem 4rem;
       text-align: center;
-      clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
-      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+      clip-path: ellipse(100% 100% at 50% 0%);
+      box-shadow: 0 16px 32px rgba(0, 0, 0, 0.4);
+      position: relative;
+      z-index: 2;
     }
     header h1 {
-      font-size: 3.5rem;
-      margin: 0 0 0.5rem;
-      animation: glow 2s ease-in-out infinite alternate;
+      font-size: 3.8rem;
+      margin: 0 0 1rem;
+      animation: glow 3s ease-in-out infinite alternate;
     }
     header p {
-      font-size: 1.2rem;
+      font-size: 1.25rem;
+      line-height: 1.6;
     }
     @keyframes glow {
-      from { text-shadow: 0 0 10px #fff, 0 0 20px var(--accent), 0 0 30px var(--primary); }
-      to { text-shadow: 0 0 20px #fff, 0 0 30px var(--accent), 0 0 40px var(--primary); }
+      from { text-shadow: 0 0 10px #fff, 0 0 30px var(--accent), 0 0 50px var(--primary); }
+      to { text-shadow: 0 0 20px #fff, 0 0 40px var(--accent), 0 0 60px var(--primary); }
     }
     section {
       padding: 3rem 2rem;
       max-width: 1000px;
       margin: auto;
       opacity: 0;
-      transform: translateY(30px);
+      transform: translateY(40px);
       animation: fadeInUp 1s ease-out forwards;
     }
-    section:nth-of-type(1) { animation-delay: 0.2s; }
-    section:nth-of-type(2) { animation-delay: 0.4s; }
-    section:nth-of-type(3) { animation-delay: 0.6s; }
-    section:nth-of-type(4) { animation-delay: 0.8s; }
-    section:nth-of-type(5) { animation-delay: 1s; }
-
+    section:not(:first-of-type) {
+      animation-delay: 0.4s;
+    }
     @keyframes fadeInUp {
       to {
         opacity: 1;
         transform: translateY(0);
       }
     }
-
     h2 {
-      border-left: 6px solid var(--highlight);
-      padding-left: 1rem;
-      font-size: 2.2rem;
-      margin-bottom: 1.5rem;
+      font-size: 2.4rem;
+      margin-bottom: 1.25rem;
       background: linear-gradient(to right, var(--primary), var(--accent));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.2);
     }
     .skill, .project, ul {
-      margin-bottom: 1.25rem;
+      margin-bottom: 1.5rem;
     }
     .project {
-      background: linear-gradient(145deg, #ffffff, #f0f0f0);
-      padding: 1.75rem;
+      background: linear-gradient(135deg, #ffffff, #f0f0f0);
+      padding: 1.8rem;
       border-radius: 20px;
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
-      transition: all 0.4s ease-in-out;
-      border-left: 5px solid var(--primary);
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.12);
+      transition: all 0.4s ease;
+      border-left: 6px solid var(--primary);
       position: relative;
-      color: #333;
+      color: #111;
     }
     .project:hover {
-      transform: translateY(-10px) scale(1.03);
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+      transform: scale(1.05);
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.25);
     }
     body.dark .project {
-      background: linear-gradient(145deg, #1a1a1a, #222);
+      background: linear-gradient(135deg, #1a1a1a, #222);
       color: white;
     }
     .toggle-theme {
@@ -111,13 +110,13 @@
       background: linear-gradient(to right, var(--primary), var(--accent));
       color: white;
       border: none;
-      padding: 0.75rem 1.25rem;
+      padding: 0.75rem 1.5rem;
       font-size: 1rem;
       cursor: pointer;
-      border-radius: 30px;
+      border-radius: 50px;
       z-index: 1000;
       box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-      transition: transform 0.3s ease;
+      transition: all 0.3s ease;
     }
     .toggle-theme:hover {
       transform: scale(1.1);
@@ -128,6 +127,7 @@
       background: linear-gradient(to right, var(--primary), var(--accent));
       color: white;
       clip-path: polygon(0 15%, 100% 0, 100% 100%, 0% 100%);
+      font-size: 1.1rem;
     }
     a {
       color: var(--primary);
@@ -142,21 +142,21 @@
       padding: 1rem;
       font-size: 1rem;
       border: 1px solid #ccc;
-      border-radius: 10px;
-      background: #fefefe;
+      border-radius: 12px;
+      background: #fdfdfd;
     }
     form button {
       padding: 1rem 2rem;
       background: linear-gradient(to right, var(--primary), var(--accent));
       color: white;
       border: none;
-      border-radius: 10px;
+      border-radius: 12px;
       font-size: 1rem;
       cursor: pointer;
       transition: transform 0.3s ease;
     }
     form button:hover {
-      transform: scale(1.05);
+      transform: scale(1.07);
     }
   </style>
 </head>
