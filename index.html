@@ -5,14 +5,26 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Kaushal Maran M | Portfolio</title>
   <style>
+    :root {
+      --bg-light: #f2f2f2;
+      --text-light: #333;
+      --bg-dark: #1e1e1e;
+      --text-dark: #f9f9f9;
+      --primary: #4b0082;
+    }
     body {
       font-family: Arial, sans-serif;
       margin: 0;
-      background: #f2f2f2;
-      color: #333;
+      background: var(--bg-light);
+      color: var(--text-light);
+      transition: background 0.3s, color 0.3s;
+    }
+    body.dark {
+      background: var(--bg-dark);
+      color: var(--text-dark);
     }
     header {
-      background-color: #4b0082;
+      background-color: var(--primary);
       color: white;
       padding: 2rem;
       text-align: center;
@@ -21,27 +33,84 @@
       padding: 2rem;
       max-width: 900px;
       margin: auto;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 1s forwards;
     }
+    section:nth-of-type(2) { animation-delay: 0.2s; }
+    section:nth-of-type(3) { animation-delay: 0.4s; }
+    section:nth-of-type(4) { animation-delay: 0.6s; }
+    section:nth-of-type(5) { animation-delay: 0.8s; }
+    section:nth-of-type(6) { animation-delay: 1s; }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
     h2 {
       border-bottom: 2px solid #ccc;
       padding-bottom: 0.5rem;
     }
-    .project, .skill {
+    .skill, .project, ul {
       margin-bottom: 1rem;
+    }
+    .project {
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 1rem;
+      background-color: #ffffff20;
+    }
+    body.dark .project {
+      background-color: #333;
+      border-color: #555;
     }
     footer {
       text-align: center;
       padding: 1rem;
-      background-color: #4b0082;
+      background-color: var(--primary);
       color: white;
     }
     a {
-      color: #4b0082;
+      color: var(--primary);
       text-decoration: none;
+    }
+    .toggle-theme {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      border-radius: 6px;
+    }
+    .dark .toggle-theme {
+      background: #333;
+      color: white;
+    }
+    form input, form textarea {
+      display: block;
+      width: 100%;
+      margin-bottom: 1rem;
+      padding: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    form button {
+      padding: 0.5rem 1rem;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
     }
   </style>
 </head>
 <body>
+  <button class="toggle-theme" onclick="document.body.classList.toggle('dark')">Toggle Theme</button>
   <header>
     <h1>Kaushal Maran M</h1>
     <p>iOS Developer • Full Stack Enthusiast • Certified Network Defender</p>
@@ -87,6 +156,12 @@
 
   <section>
     <h2>Contact</h2>
+    <form action="#" method="POST">
+      <input type="text" placeholder="Your Name" required />
+      <input type="email" placeholder="Your Email" required />
+      <textarea rows="4" placeholder="Your Message" required></textarea>
+      <button type="submit">Send Message</button>
+    </form>
     <p>Email: kaushalmaran@gmail.com</p>
     <p>GitHub: <a href="https://github.com/kaushalboii" target="_blank">github.com/kaushalboii</a></p>
     <p>LinkedIn: <a href="https://linkedin.com/in/kaushal-maran-m-9572622b1" target="_blank">linkedin.com/in/kaushal-maran-m-9572622b1</a></p>
