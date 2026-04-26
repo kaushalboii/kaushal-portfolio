@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>M Kaushal Maran — Mobile App Developer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;900&family=Outfit:wght@200;300;400;500;600&family=Space+Mono:wght@400;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* ══════════════════════════════════════════
+   HERO NAME FIX — properly scaled
+/* ══════════════════════════════════════════ */
+    .hero-name {
+      font-family: 'Playfair Display', serif !important;
+      font-size: clamp(42px, 7vw, 96px) !important;
+      line-height: 1 !important;
+      letter-spacing: -0.01em !important;
+      color: #ffffff !important;
+      font-weight: 900 !important;
+      text-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+
+    .hero-name .line-1 {
+      display: block;
+      font-size: clamp(38px, 6vw, 82px) !important;
+      opacity: 0;
+      animation: fadeUp 1s 0.5s forwards;
+    }
+
+    .hero-name .line-2 {
+      display: block;
+      font-size: clamp(48px, 8.5vw, 108px) !important;
+      -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.5);
+      color: transparent !important;
+      opacity: 0;
+      animation: fadeUp 1s 0.7s forwards;
+    }
+
+    /* ══════════════════════════════════════════
+   HERO LAYOUT — two column: photo left, content right
+/* ══════════════════════════════════════════ */
+    #hero {
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+    }
+
+    .hero-two-col {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 64px;
+      align-items: center;
+      max-width: 1100px;
+      width: 100%;
+      padding: 0 60px;
+      position: relative;
+      z-index: 3;
+    }
+
+    /* Photo column */
+    .hero-photo-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      opacity: 0;
+      animation: fadeUp 1s 0.4s forwards;
+    }
+
+    .hero-photo-frame {
+      position: relative;
+      width: 240px;
+      height: 300px;
+    }
+
+    .hero-photo-frame::before {
+      content: '';
+      position: absolute;
+      inset: -2px;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.1));
+      clip-path: polygon(16px 0, 100% 0, 100% calc(100% - 16px), calc(100% - 16px) 100%, 0 100%, 0 16px);
+      z-index: -1;
+    }
+
+    .hero-photo-frame::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      right: -10px;
+      width: 100%;
+      height: 100%;
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      clip-path: polygon(16px 0, 100% 0, 100% calc(100% - 16px), calc(100% - 16px) 100%, 0 100%, 0 16px);
+      z-index: -2;
+    }
+
+    .hero-photo {
+      width: 240px;
+      height: 300px;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+      filter: grayscale(10%) contrast(1.08);
+      clip-path: polygon(16px 0, 100% 0, 100% calc(100% - 16px), calc(100% - 16px) 100%, 0 100%, 0 16px);
+      transition: filter .4s;
+    }
+
+    .hero-photo:hover {
+      filter: grayscale(0%) contrast(1.12) brightness(1.05);
+    }
+
+    /* Pulse dot */
+    .photo-pulse-dot {
+      position: absolute;
+      top: 16px;
+      right: -12px;
+      width: 8px;
+      height: 8px;
+      background: white;
+      border-radius: 50%;
+      box-shadow: 0 0 18px rgba(255, 255, 255, 0.8);
+      animation: pulseDot 2s ease-in-out infinite;
+    }
+
+    @keyframes pulseDot {
+
+      0%,
+      100% {
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
+        transform: scale(1);
+      }
+
+      50% {
+        box-shadow: 0 0 28px rgba(255, 255, 255, 0.9);
+        transform: scale(1.2);
+      }
+    }
+
+    /* No photo fallback — hide entire col */
+    .hero-photo-col.hidden {
+      display: none;
+    }
+
+    .hero-photo-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 8px;
+      letter-spacing: 0.22em;
+      color: rgba(255, 255, 255, 0.22);
+      text-transform: uppercase;
+      text-align: center;
+    }
+
+    /* Content column */
+    .hero-inner {
+      margin: 0 !important;
+      padding: 0 !important;
+      text-align: left !important;
+      max-width: 100% !important;
+    }
+
+    @media (max-width: 900px) {
+      .hero-two-col {
+        grid-template-columns: 1fr;
+        padding: 0 24px;
+        gap: 40px;
+        text-align: center;
+      }
+
+      .hero-photo-col {
+        display: none;
+      }
+
+      .hero-inner {
+        text-align: center !important;
+      }
+
+      .hero-ctas {
+        justify-content: center !important;
+      }
+
+      .hero-contact-strip {
+        margin: 20px auto 0 !important;
+      }
+    }
+
+    /* ══════════════════════════════════════════
+   HERO CONTACT STRIP
+/* ══════════════════════════════════════════ */
+    .hero-contact-strip {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-start;
+      align-items: center;
+      gap: 8px 20px;
+      margin: 20px 0 0;
+      padding: 14px 24px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 2px;
+      max-width: fit-content;
+    }
+
+    .hero-contact-item {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      color: rgba(255, 255, 255, 0.55);
+      text-decoration: none;
+      white-space: nowrap;
+      transition: color .3s;
+    }
+
+    .hero-contact-item:hover {
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    .hero-contact-dot {
+      color: rgba(255, 255, 255, 0.2);
+      font-size: 16px;
+    }
+
+    @media (max-width: 600px) {
+      .hero-contact-dot {
+        display: none;
+      }
+
+      .hero-contact-strip {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        padding: 16px 20px;
+      }
+    }
+
+    /* ══════════════════════════════════════════
+   HERO DESC + CTAS — centered
+/* ══════════════════════════════════════════ */
+    .hero-desc {
+      text-align: left !important;
+      max-width: 540px;
+      margin: 24px 0 0 !important;
+      font-size: 14px;
+      line-height: 1.8;
+      color: rgba(255, 255, 255, 0.42);
+    }
+
+    @media (max-width: 900px) {
+      .hero-desc {
+        text-align: center !important;
+        margin: 24px auto 0 !important;
+      }
+    }
+
+    .hero-ctas {
+      justify-content: flex-start !important;
+      margin-top: 40px !important;
+    }
+
+    .hero-eyebrow {
+      text-align: left !important;
+    }
+
+    @media (max-width: 900px) {
+      .hero-ctas {
+        justify-content: center !important;
+      }
+
+      .hero-eyebrow {
+        text-align: center !important;
+      }
+    }
+
+    /* ══════════════════════════════════════════
+   LIVE LINK BUTTON
+/* ══════════════════════════════════════════ */
+    .proj-live-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 18px;
+      padding: 9px 22px;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      background: rgba(255, 255, 255, 0.03);
+      color: rgba(255, 255, 255, 0.65);
+      font-family: 'Space Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      text-decoration: none;
+      position: relative;
+      overflow: hidden;
+      transition: all .3s;
+    }
+
+    .proj-live-link::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(255, 255, 255, 0.04);
+      transform: translateX(-100%);
+      transition: transform .3s;
+    }
+
+    .proj-live-link:hover {
+      border-color: rgba(255, 255, 255, 0.38);
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(255, 255, 255, 0.05);
+    }
+
+    .proj-live-link:hover::before {
+      transform: translateX(0);
+    }
+
+    .proj-live-link .live-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #4ade80;
+      box-shadow: 0 0 8px #4ade80;
+      flex-shrink: 0;
+      animation: livePulse 1.6s ease-in-out infinite;
+    }
+
+    .proj-live-link span {
+      position: relative;
+      z-index: 1;
+    }
+
+    @keyframes livePulse {
+
+      0%,
+      100% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 0.35;
+      }
+    }
+
+    /* ══════════════════════════════════════════
+   ABOUT GRID — 2 col (no photo col)
+/* ══════════════════════════════════════════ */
+    .about-grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      margin-top: 60px;
+      align-items: start;
+    }
+
+    @media (max-width: 768px) {
+      .about-grid-2 {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+    }
+
+    /* ══════════════════════════════════════════
+   STAT CARDS — 2x2 grid
+/* ══════════════════════════════════════════ */
+    .about-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+    }
+
+    /* ══════════════════════════════════════════
+   HERO RINGS — center them properly
+/* ══════════════════════════════════════════ */
+    .hero-ring {
+      left: 50% !important;
+      transform: translateX(-50%) !important;
+    }
+
+    /* ══════════════════════════════════════════
+   MOBILE GLOBAL FIXES
+/* ══════════════════════════════════════════ */
+    @media (max-width: 768px) {
+      .hero-badge {
+        display: none;
+      }
+
+      .proj-row {
+        grid-template-columns: 44px 1fr !important;
+        gap: 16px !important;
+        padding: 24px 20px !important;
+      }
+
+      .proj-arrow {
+        display: none !important;
+      }
+
+      .skills-grid {
+        grid-template-columns: 1fr !important;
+      }
+
+      .about-stats {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .contact-cards {
+        grid-template-columns: 1fr !important;
+        gap: 10px !important;
+      }
+
+      .section-inner {
+        padding-left: 24px !important;
+        padding-right: 24px !important;
+      }
+
+      nav {
+        padding: 16px 20px !important;
+      }
+
+      .nav-links {
+        display: none !important;
+      }
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(28px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="cursor"></div>
+  <div id="cursor-trail"></div>
+  <canvas id="bg-canvas"></canvas>
+  <div id="orb-1" class="orb"></div>
+  <div id="orb-2" class="orb"></div>
+  <div id="orb-3" class="orb"></div>
+
+  <!-- ════════════════ NAV ════════════════ -->
+  <nav id="navbar">
+    <div class="nav-logo">MKM</div>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a href="tel:+918610851456" class="nav-phone">+91 86108 51456</a>
+  </nav>
+
+  <!-- ════════════════ HERO ════════════════ -->
+  <section id="hero">
+    <div class="hero-ring hero-ring-1"></div>
+    <div class="hero-ring hero-ring-2"></div>
+    <div class="hero-ring hero-ring-3"></div>
+
+    <div class="hero-badge badge-1 reveal-badge">
+      <div class="badge-num">10+</div>
+      <div class="badge-label">Apps Built</div>
+    </div>
+    <div class="hero-badge badge-3 reveal-badge">
+      <div class="badge-num">iOS</div>
+      <div class="badge-label">Developer</div>
+    </div>
+    <div class="hero-badge badge-4 reveal-badge">
+      <div class="badge-num">B.Tech</div>
+      <div class="badge-label">Info Tech</div>
+    </div>
+
+    <!-- TWO-COLUMN HERO -->
+    <div class="hero-two-col">
+
+      <!-- LEFT: PHOTO -->
+      <div class="hero-photo-col" id="heroPhotoCol">
+        <div class="hero-photo-frame">
+          <div class="photo-pulse-dot"></div>
+          <img src="assets/kaushal.png" alt="M Kaushal Maran" class="hero-photo"
+            onerror="this.src='https://via.placeholder.com/240x300?text=Kaushal+Maran'">
+        </div>
+        <div class="hero-photo-label">M Kaushal Maran · Mobile App Developer</div>
+      </div>
+
+      <!-- RIGHT: CONTENT -->
+      <div class="hero-inner">
+        <div class="hero-eyebrow">Mobile App Developer &nbsp;·&nbsp; B.Tech IT</div>
+
+        <div class="hero-name-wrap" id="hero-tilt">
+          <h1 class="hero-name">
+            <span class="name-line line-1">M KAUSHAL</span>
+            <span class="name-line line-2">MARAN</span>
+          </h1>
+        </div>
+
+        <div class="hero-contact-strip">
+          <a href="tel:+918610851456" class="hero-contact-item">
+            <span class="hci-icon">📱</span>
+            <span>+91 86108 51456</span>
+          </a>
+          <span class="hero-contact-dot">·</span>
+          <a href="mailto:kaushalmaranm@gmail.com" class="hero-contact-item">
+            <span class="hci-icon">✉️</span>
+            <span>kaushalmaranm@gmail.com</span>
+          </a>
+          <span class="hero-contact-dot">·</span>
+          <span class="hero-contact-item">
+            <span class="hci-icon">📍</span>
+            <span>Vellore, Tamil Nadu</span>
+          </span>
+        </div>
+
+        <p class="hero-desc">
+          Building scalable, secure, and user-friendly mobile applications with modern UI design principles.
+          Expert in crafting seamless experiences for Android and iOS platforms.
+        </p>
+
+        <div class="hero-ctas">
+          <a href="#projects" class="btn-primary"><span>View My Work</span></a>
+          <a href="#contact" class="btn-ghost">Get In Touch</a>
+        </div>
+      </div>
+
+    </div><!-- end hero-two-col -->
+
+    <div class="scroll-cue">
+      <div class="scroll-line"></div>
+      <span>scroll</span>
+    </div>
+  </section>
+
+  <!-- ════════════════ ABOUT ════════════════ -->
+  <section id="about">
+    <div class="section-inner">
+      <div class="section-label reveal">01 — About Me</div>
+      <h2 class="section-heading reveal">WHO<br><em>I AM</em></h2>
+
+      <div class="about-grid-2">
+        <div class="about-text reveal">
+          <p>I'm <strong>M Kaushal Maran</strong> — a final-year B.Tech Information Technology student at SIMATS
+            Engineering College with a passion for mobile innovation.</p>
+          <p>With hands-on experience in Android and iOS development, I specialize in <strong>Kotlin, Swift, SwiftUI,
+              PHP, and MySQL</strong>. I build scalable, secure, and user-friendly mobile applications that bridge the
+            gap between design and functionality.</p>
+          <p>From wellness apps like <strong>ZenLife</strong> to complex multi-city listing platforms and legal
+            reference tools, I focus on delivering high-performance solutions with clean, modern UI design.</p>
+          <p>My mission: To create impactful mobile experiences that solve real-world problems through elegant code and
+            intuitive design.</p>
+        </div>
+
+        <div class="about-stats">
+          <div class="stat-card reveal">
+            <div class="stat-num" data-target="10">0</div>
+            <div class="stat-suffix">+</div>
+            <div class="stat-label">Projects Built</div>
+          </div>
+          <div class="stat-card reveal">
+            <div class="stat-num" data-target="2">0</div>
+            <div class="stat-suffix"></div>
+            <div class="stat-label">Mobile Platforms</div>
+          </div>
+          <div class="stat-card reveal">
+            <div class="stat-num" data-target="8">0</div>
+            <div class="stat-suffix">.1</div>
+            <div class="stat-label">CGPA</div>
+          </div>
+          <div class="stat-card reveal">
+            <div class="stat-num">∞</div>
+            <div class="stat-suffix"></div>
+            <div class="stat-label">Passion for Code</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════ SKILLS ════════════════ -->
+  <section id="skills">
+    <div class="section-inner">
+      <div class="section-label reveal">02 — Tech Stack</div>
+      <h2 class="section-heading reveal">SKILLS &amp;<br><em>EXPERTISE</em></h2>
+      <div class="skills-grid">
+
+        <div class="skill-card reveal">
+          <div class="skill-glow"></div>
+          <div class="skill-icon">📱</div>
+          <div class="skill-cat">Mobile Development</div>
+          <div class="skill-name">Android &amp; iOS</div>
+          <p class="skill-desc">Native app development using modern frameworks for high-performance mobile experiences.
+          </p>
+          <div class="skill-tags">
+            <span class="tag">SwiftUI</span><span class="tag">Kotlin</span><span class="tag">Jetpack Compose</span>
+            <span class="tag">WKWebView</span><span class="tag">Xcode</span><span class="tag">Android Studio</span>
+          </div>
+        </div>
+
+        <div class="skill-card reveal">
+          <div class="skill-glow"></div>
+          <div class="skill-icon">⚙️</div>
+          <div class="skill-cat">Backend &amp; DB</div>
+          <div class="skill-name">Database Systems</div>
+          <p class="skill-desc">Designing robust backends and efficient data storage solutions for mobile applications.
+          </p>
+          <div class="skill-tags">
+            <span class="tag">MySQL</span><span class="tag">PHP</span><span class="tag">CoreData</span>
+            <span class="tag">ROOM Database</span><span class="tag">Backend Integration</span>
+          </div>
+        </div>
+
+        <div class="skill-card reveal">
+          <div class="skill-glow"></div>
+          <div class="skill-icon">🎨</div>
+          <div class="skill-cat">Design</div>
+          <div class="skill-name">UI/UX Creation</div>
+          <p class="skill-desc">Creating visually stunning and intuitive user interfaces with modern design tools.</p>
+          <div class="skill-tags">
+            <span class="tag">Figma</span><span class="tag">Canva</span><span class="tag">Blender</span>
+            <span class="tag">Responsive Design</span>
+          </div>
+        </div>
+
+        <div class="skill-card reveal">
+          <div class="skill-glow"></div>
+          <div class="skill-icon">🛠️</div>
+          <div class="skill-cat">Tools</div>
+          <div class="skill-name">Dev Environment</div>
+          <p class="skill-desc">Professional development tooling and version control for collaborative engineering.</p>
+          <div class="skill-tags">
+            <span class="tag">GitHub</span><span class="tag">VS Code</span><span class="tag">XAMPP</span>
+            <span class="tag">SPSS</span><span class="tag">RStudio</span>
+          </div>
+        </div>
+
+        <div class="skill-card reveal">
+          <div class="skill-glow"></div>
+          <div class="skill-icon">🧠</div>
+          <div class="skill-cat">Emerging Tech</div>
+          <div class="skill-name">AI &amp; Automation</div>
+          <p class="skill-desc">Exploring AI-driven solutions including Natural Language Processing and Neural Networks.
+          </p>
+          <div class="skill-tags">
+            <span class="tag">Python</span><span class="tag">NLP</span><span class="tag">Neural Networks</span>
+            <span class="tag">GANs</span>
+          </div>
+        </div>
+
+        <div class="skill-card reveal">
+          <div class="skill-glow"></div>
+          <div class="skill-icon">⚡</div>
+          <div class="skill-cat">Programming</div>
+          <div class="skill-name">Core Engineering</div>
+          <p class="skill-desc">Strong foundation in multiple programming languages for versatile software development.
+          </p>
+          <div class="skill-tags">
+            <span class="tag">Java</span><span class="tag">C</span><span class="tag">C++</span>
+            <span class="tag">Python</span><span class="tag">Swift</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════ PROJECTS ════════════════ -->
+  <section id="projects">
+    <div class="section-inner">
+      <div class="section-label reveal">03 — Work</div>
+      <h2 class="section-heading reveal">FEATURED<br><em>PROJECTS</em></h2>
+      <div class="projects-list">
+
+        <!-- 01 ZENLIFE -->
+        <div class="proj-row reveal">
+          <div class="proj-num">01</div>
+          <div class="proj-body">
+            <div class="proj-meta">iOS · Wellness · Swift UI · Live on App Store</div>
+            <div class="proj-title">ZENLIFE — Sound-Based Stress Relief App</div>
+            <div class="proj-desc">
+              An iOS wellness app that delivers calming and personalized sound experiences based on user mood and survey
+              responses. Includes real-time mood tracking, survey analytics, and secure backend storage.
+            </div>
+            <div class="proj-stack">
+              <span class="proj-tag">SwiftUI</span><span class="proj-tag">MySQL</span>
+              <span class="proj-tag">PHP</span><span class="proj-tag">CoreData</span>
+            </div>
+            <a href="https://apps.apple.com/in/app/zenlife-stress-sound-relief/id6753105286" target="_blank"
+              rel="noopener" class="proj-live-link">
+              <span class="live-dot"></span>
+              <span>Download on App Store →</span>
+            </a>
+          </div>
+          <div class="proj-arrow">→</div>
+        </div>
+
+        <!-- 02 VIANA 360 -->
+        <div class="proj-row reveal">
+          <div class="proj-num">02</div>
+          <div class="proj-body">
+            <div class="proj-meta">iOS · Monitoring · Live on App Store</div>
+            <div class="proj-title">Viana 360 — Proactive Monitoring Solution</div>
+            <div class="proj-desc">
+              A sophisticated iOS application for real-time monitoring and data visualization, providing users with a
+              comprehensive 360-degree view of their tracked metrics and systems.
+            </div>
+            <div class="proj-stack">
+              <span class="proj-tag">iOS</span><span class="proj-tag">Swift</span>
+              <span class="proj-tag">Real-time Data</span><span class="proj-tag">UI/UX</span>
+            </div>
+            <a href="https://apps.apple.com/in/app/viana-360/id6760163659" target="_blank" rel="noopener"
+              class="proj-live-link">
+              <span class="live-dot"></span>
+              <span>Download on App Store →</span>
+            </a>
+          </div>
+          <div class="proj-arrow">→</div>
+        </div>
+
+        <!-- 03 ADS PLATFORMS -->
+        <div class="proj-row reveal">
+          <div class="proj-num">03</div>
+          <div class="proj-body">
+            <div class="proj-meta">Android &amp; iOS · Business · Live on Play Store</div>
+            <div class="proj-title">Ads &amp; Business Listing Platforms (Vellore Ads)</div>
+            <div class="proj-desc">
+              Built and maintained multiple city-based advertising and business listing platforms. Features scalable
+              content delivery, real-time updates, and region-specific ad management.
+            </div>
+            <div class="proj-stack">
+              <span class="proj-tag">Kotlin</span><span class="proj-tag">Jetpack Compose</span>
+              <span class="proj-tag">SwiftUI</span><span class="proj-tag">MySQL</span>
+              <span class="proj-tag">PHP</span>
+            </div>
+            <a href="https://play.google.com/store/apps/details?id=com.velloreads.app&hl=en_IN" target="_blank"
+              rel="noopener" class="proj-live-link">
+              <span class="live-dot"></span>
+              <span>Get on Play Store →</span>
+            </a>
+          </div>
+          <div class="proj-arrow">→</div>
+        </div>
+
+        <!-- 04 LAW APPS -->
+        <div class="proj-row reveal">
+          <div class="proj-num">04</div>
+          <div class="proj-body">
+            <div class="proj-meta">Android · Legal · 11 Languages · Live Apps</div>
+            <div class="proj-title">Indian Law Pocket Reference Apps</div>
+            <div class="proj-desc">
+              A suite of Android legal reference apps (Constitution, BNS, BNSS, BSA, CPC, POSH, Police Act) with offline
+              access and translation in 11 Indian languages.
+            </div>
+            <div class="proj-stack">
+              <span class="proj-tag">Kotlin</span><span class="proj-tag">Jetpack Compose</span>
+              <span class="proj-tag">MySQL</span><span class="proj-tag">ROOM Data</span>
+            </div>
+            <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 15px;">
+              <a href="https://play.google.com/store/apps/details?id=com.kaushal.constitutionindia&hl=en_IN"
+                target="_blank" rel="noopener" class="proj-live-link">
+                <span class="live-dot"></span>
+                <span>Constitution →</span>
+              </a>
+              <a href="https://play.google.com/store/apps/details?id=com.bns.pocketreference&hl=en_IN" target="_blank"
+                rel="noopener" class="proj-live-link">
+                <span class="live-dot"></span>
+                <span>BNS →</span>
+              </a>
+              <a href="https://play.google.com/store/apps/details?id=com.bsa.pocketreference&hl=en_IN" target="_blank"
+                rel="noopener" class="proj-live-link">
+                <span class="live-dot"></span>
+                <span>BSA →</span>
+              </a>
+            </div>
+          </div>
+          <div class="proj-arrow">→</div>
+        </div>
+
+        <!-- 05 ELECTION 2026 -->
+        <div class="proj-row reveal">
+          <div class="proj-num">05</div>
+          <div class="proj-body">
+            <div class="proj-meta">Android · Governance · Live on Play Store</div>
+            <div class="proj-title">Election 2026 — Information Platform</div>
+            <div class="proj-desc">
+              A dedicated Android platform for election-related information, providing users with up-to-date details and
+              resources for the 2026 elections.
+            </div>
+            <div class="proj-stack">
+              <span class="proj-tag">Kotlin</span><span class="proj-tag">Android Studio</span>
+              <span class="proj-tag">Information Architecture</span>
+            </div>
+            <a href="https://play.google.com/store/apps/details?id=com.bctnpy.election2026&hl=en_IN" target="_blank"
+              rel="noopener" class="proj-live-link">
+              <span class="live-dot"></span>
+              <span>Get on Play Store →</span>
+            </a>
+          </div>
+          <div class="proj-arrow">→</div>
+        </div>
+
+        <!-- 06 COMIC GENERATOR -->
+        <div class="proj-row reveal">
+          <div class="proj-num">06</div>
+          <div class="proj-body">
+            <div class="proj-meta">Java · AI · Neural Networks</div>
+            <div class="proj-title">Automatic Comic Generator</div>
+            <div class="proj-desc">
+              Automates comic creation using rule-based systems and neural networks. Integrates GANs and pre-trained
+              style models to generate unique visuals.
+            </div>
+            <div class="proj-stack">
+              <span class="proj-tag">Java</span><span class="proj-tag">Neural Networks</span>
+              <span class="proj-tag">GANs</span>
+            </div>
+          </div>
+          <div class="proj-arrow">→</div>
+        </div>
+
+        <!-- 05 LEARNING PATHS -->
+        <div class="proj-row reveal">
+          <div class="proj-num">07</div>
+          <div class="proj-body">
+            <div class="proj-meta">Python · EdTech · NLP</div>
+            <div class="proj-title">AI-Driven Personalized Learning Paths</div>
+            <div class="proj-desc">
+              An AI-driven platform providing personalized learning paths for students by analyzing their needs and
+              levels using advanced NLP algorithms to tailor content and improve outcomes.
+            </div>
+            <div class="proj-stack">
+              <span class="proj-tag">Python</span><span class="proj-tag">NLP</span>
+              <span class="proj-tag">Machine Learning</span>
+            </div>
+          </div>
+          <div class="proj-arrow">→</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════ EXPERIENCE ════════════════ -->
+  <section id="experience">
+    <div class="section-inner">
+      <div class="section-label reveal">04 — Journey</div>
+      <h2 class="section-heading reveal">EXPERIENCE &amp;<br><em>EDUCATION</em></h2>
+      <div class="timeline">
+
+        <div class="tl-item reveal">
+          <div class="tl-dot"></div>
+          <div class="tl-date">Nov 2025 – Dec 2025</div>
+          <div class="tl-role">Mobile App Development Intern</div>
+          <div class="tl-org">Redback IT Solutions Private Ltd · Vellore</div>
+          <ul class="tl-bullets">
+            <li>Independently designed, developed, and delivered multiple Android and iOS applications as the sole
+              developer.</li>
+            <li>Built Android apps using Kotlin and Android Studio, and iOS apps using Swift and WKWebView.</li>
+            <li>Developed WebView-based mobile applications for client platforms, ensuring secure content rendering and
+              responsive UX.</li>
+            <li>Managed UI implementation, feature integration, testing, debugging, and app build generation (APK/IPA).
+            </li>
+          </ul>
+        </div>
+
+        <div class="tl-item reveal">
+          <div class="tl-dot"></div>
+          <div class="tl-date">2022 – 2026 (Expected)</div>
+          <div class="tl-role">B.Tech — Information Technology</div>
+          <div class="tl-org">SIMATS Engineering College · CGPA: 8.1</div>
+          <ul class="tl-bullets">
+            <li>Specializing in mobile application development, database management, and emerging AI technologies.</li>
+            <li>Actively building and shipping production-ready mobile applications across multiple domains.</li>
+          </ul>
+        </div>
+
+        <div class="tl-item reveal">
+          <div class="tl-dot"></div>
+          <div class="tl-date">2021 – 2022</div>
+          <div class="tl-role">Higher Secondary Education</div>
+          <div class="tl-org">Lakshmi Garden Matric Hr.Sec.School</div>
+          <ul class="tl-bullets">
+            <li>Completed schooling with a focus on core engineering foundations.</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════ CONTACT ════════════════ -->
+  <section id="contact">
+    <div class="contact-inner">
+      <div class="section-label reveal" style="justify-content:center">05 — Let's Connect</div>
+      <h2 class="contact-title reveal">LET'S<br><em>BUILD.</em></h2>
+      <p class="contact-sub reveal">
+        Open to mobile app development projects, collaboration, and internships.<br>
+        Let's turn your ideas into functional, beautiful mobile apps.
+      </p>
+      <a href="mailto:kaushalmaranm@gmail.com" class="btn-primary reveal"><span>Send Me A Message →</span></a>
+
+      <div class="contact-cards">
+        <a href="mailto:kaushalmaranm@gmail.com" class="contact-card reveal">
+          <span class="cc-icon">✉️</span>
+          <div class="cc-text">
+            <div class="cc-label">Email</div>
+            <div class="cc-val">kaushalmaranm@gmail.com</div>
+          </div>
+        </a>
+        <a href="tel:+918610851456" class="contact-card reveal">
+          <span class="cc-icon">📱</span>
+          <div class="cc-text">
+            <div class="cc-label">Phone</div>
+            <div class="cc-val">+91 86108 51456</div>
+          </div>
+        </a>
+        <a href="https://github.com/kaushalboii" target="_blank" rel="noopener" class="contact-card reveal">
+          <span class="cc-icon">🐙</span>
+          <div class="cc-text">
+            <div class="cc-label">GitHub</div>
+            <div class="cc-val">github.com/kaushalboii</div>
+          </div>
+        </a>
+        <a href="https://linkedin.com/in/kaushal-maran-m" target="_blank" rel="noopener" class="contact-card reveal">
+          <span class="cc-icon">🔗</span>
+          <div class="cc-text">
+            <div class="cc-label">LinkedIn</div>
+            <div class="cc-val">kaushal-maran-m</div>
+          </div>
+        </a>
+        <div class="contact-card reveal">
+          <span class="cc-icon">📍</span>
+          <div class="cc-text">
+            <div class="cc-label">Location</div>
+            <div class="cc-val">Vellore, Tamil Nadu</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════ FOOTER ════════════════ -->
+  <footer>
+    <div class="footer-logo">M KAUSHAL MARAN</div>
+    <div class="footer-copy">
+      © 2026 · M Kaushal Maran · Mobile App Developer
+      &nbsp;·&nbsp;
+      <a href="https://github.com/kaushalboii" target="_blank"
+        style="color:rgba(255,255,255,0.28);text-decoration:none;transition:color .3s;"
+        onmouseover="this.style.color='rgba(255,255,255,0.7)'"
+        onmouseout="this.style.color='rgba(255,255,255,0.28)'">GitHub</a>
+      &nbsp;·&nbsp;
+      <a href="https://linkedin.com/in/kaushal-maran-m" target="_blank"
+        style="color:rgba(255,255,255,0.28);text-decoration:none;transition:color .3s;"
+        onmouseover="this.style.color='rgba(255,255,255,0.7)'"
+        onmouseout="this.style.color='rgba(255,255,255,0.28)'">LinkedIn</a>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="js/three-scene.js"></script>
+  <script src="js/main.js"></script>
+</body>
+
+</html>
