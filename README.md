@@ -1,3 +1,11 @@
+<img width="1470" height="956" alt="Screenshot 2026-04-26 at 9 19 33 PM" src="https://github.com/user-attachments/assets/a134146d-702e-4661-a9ca-1c1beeab5fc6" />
+
+
+
+
+
+
+
 # 🌌 M Kaushal Maran — Premium Portfolio
 
 A high-performance, visually stunning interactive 3D portfolio built for **M Kaushal Maran**, a Mobile App Developer and B.Tech Information Technology student at SIMATS Engineering College.
