@@ -133,4 +133,34 @@
     });
   });
 
+  // ─── CIRCULAR FAVICON GENERATOR ───
+  const faviconImg = new Image();
+  faviconImg.src = 'assets/kaushal.png';
+  faviconImg.onload = function() {
+    const canvas = document.createElement('canvas');
+    const size = 64;
+    canvas.width = size;
+    canvas.height = size;
+    const ctx = canvas.getContext('2d');
+    
+    ctx.beginPath();
+    ctx.arc(size/2, size/2, size/2, 0, Math.PI * 2);
+    ctx.clip();
+    
+    // Maintain aspect ratio while drawing
+    const minSide = Math.min(faviconImg.width, faviconImg.height);
+    const sx = (faviconImg.width - minSide) / 2;
+    const sy = (faviconImg.height - minSide) / 2;
+    ctx.drawImage(faviconImg, sx, sy, minSide, minSide, 0, 0, size, size);
+    
+    let link = document.querySelector("link[rel*='icon']");
+    if (!link) {
+      link = document.createElement('link');
+      document.head.appendChild(link);
+    }
+    link.type = 'image/png';
+    link.rel = 'shortcut icon';
+    link.href = canvas.toDataURL('image/png');
+  };
+
 })();
