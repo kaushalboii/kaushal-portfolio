@@ -10,7 +10,7 @@
 
 A high-performance, visually stunning interactive 3D portfolio built for **M Kaushal Maran**, a Mobile App Developer and B.Tech Information Technology student at SIMATS Engineering College.
 
-🔗 **Live Preview**: [kaushalmaran-portfolio.netlify.app](https://kaushalmaran-portfolio.netlify.app/)
+🔗 **Live Preview**: [https://kaushalboii.github.io/kaushal-portfolio/]((https://kaushalboii.github.io/kaushal-portfolio/))
 
 ## 🚀 Key Features
 
